@@ -1,25 +1,39 @@
 // scripts.js
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM Carregado e Script Iniciado.");
+
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
     const contentSections = document.querySelectorAll('.main-content-area > div[id$="-section"]');
     const widgetCards = document.querySelectorAll('.dashboard-widgets .widget-card');
 
+    console.log("Nav Links Encontrados:", navLinks.length);
+    console.log("Content Sections Encontradas:", contentSections.length, contentSections);
+    console.log("Widget Cards Encontrados:", widgetCards.length);
+
     const showSection = (sectionId) => {
+        console.log("showSection chamada para:", sectionId);
+        let sectionFound = false;
         contentSections.forEach(section => {
-            if (section.id === 'dashboard-section' && sectionId === 'dashboard-section') {
+            if (section.id === sectionId) {
                 section.style.display = 'block';
-            } else if (section.id === 'dashboard-section' && sectionId !== 'dashboard-section') {
-                section.style.display = 'none';
+                sectionFound = true;
+                console.log("Mostrando secção:", section.id);
             } else {
-                 section.style.display = (section.id === sectionId) ? 'block' : 'none';
+                section.style.display = 'none';
+                // console.log("Escondendo secção:", section.id); // Descomentar para log mais detalhado
             }
         });
+        if (!sectionFound) {
+            console.warn("Nenhuma secção encontrada com o ID:", sectionId);
+        }
+
         if (sectionId === 'dashboard-section') {
             renderCharts();
         }
     };
 
     const updateActiveLink = (activeSectionId) => {
+        console.log("updateActiveLink chamada para:", activeSectionId);
         navLinks.forEach(link => {
             if (link.getAttribute('data-section') === activeSectionId) {
                  link.classList.add('active');
@@ -33,13 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetSectionId = link.getAttribute('data-section');
-            showSection(targetSectionId);
-            updateActiveLink(targetSectionId);
-            try {
-                history.pushState(null, '', link.getAttribute('href'));
-            } catch (error)
-                {
-                console.warn("history.pushState is not available or failed:", error);
+            console.log("Nav Link Clicado. Target:", targetSectionId);
+            if (targetSectionId) {
+                showSection(targetSectionId);
+                updateActiveLink(targetSectionId);
+                try {
+                    history.pushState(null, '', link.getAttribute('href'));
+                } catch (error) {
+                    console.warn("history.pushState falhou:", error);
+                }
+            } else {
+                console.warn("Nav Link clicado não tem data-section:", link);
             }
         });
     });
@@ -47,14 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
     widgetCards.forEach(card => {
         card.addEventListener('click', () => {
             const targetSectionId = card.getAttribute('data-section-target');
+            console.log("Widget Card Clicado. Target:", targetSectionId);
             if (targetSectionId && document.getElementById(targetSectionId)) {
                 showSection(targetSectionId);
-                updateActiveLink(targetSectionId);
+                updateActiveLink(targetSectionId); // Atualiza o link ativo no sidebar
                  try {
                     history.pushState(null, '', `#${targetSectionId.replace('-section', '')}`);
                 } catch (error) {
-                    console.warn("history.pushState is not available or failed:", error);
+                    console.warn("history.pushState falhou:", error);
                 }
+            } else {
+                console.warn("Widget Card clicado não tem data-section-target válido ou o elemento não foi encontrado:", targetSectionId, card);
             }
         });
     });
@@ -77,8 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.experienceHighlightsChartInstance = null;
 
     const renderCharts = () => {
+        console.log("Tentando renderizar gráficos.");
          if (window.experienceHighlightsChartInstance) {
             window.experienceHighlightsChartInstance.destroy();
+            console.log("Instância de gráfico anterior destruída.");
          }
         const experienceHighlightsCanvas = document.getElementById('experienceHighlightsChart');
         if (experienceHighlightsCanvas) {
@@ -106,20 +129,30 @@ document.addEventListener('DOMContentLoaded', () => {
                      cutout: '0%',
                 }
             });
+            console.log("Novo gráfico renderizado.");
+        } else {
+            console.warn("Canvas do gráfico 'experienceHighlightsChart' não encontrado.");
         }
     };
 
     const initialHash = window.location.hash.substring(1);
     let initialSectionId = 'dashboard-section';
+    console.log("Hash Inicial:", initialHash);
 
     if (initialHash) {
-        const potentialSectionId = initialHash.endsWith('-section') ? initialHash : initialHash + '-section';
-        if (document.getElementById(potentialSectionId)) {
-            initialSectionId = potentialSectionId;
+        // Tenta corresponder ao ID completo com '-section' ou apenas ao nome base
+        const potentialSectionIdWithSuffix = initialHash.endsWith('-section') ? initialHash : initialHash + '-section';
+        const potentialSectionIdWithoutSuffix = initialHash.replace('-section', '');
+
+        if (document.getElementById(potentialSectionIdWithSuffix)) {
+            initialSectionId = potentialSectionIdWithSuffix;
+        } else if (document.getElementById(potentialSectionIdWithoutSuffix + '-section')) {
+            // Se o hash era, por exemplo, #profile e existe #profile-section
+            initialSectionId = potentialSectionIdWithoutSuffix + '-section';
         }
     }
+    console.log("Secção Inicial a ser mostrada:", initialSectionId);
 
     showSection(initialSectionId);
     updateActiveLink(initialSectionId);
-
 });
