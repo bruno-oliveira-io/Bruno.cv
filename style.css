@@ -1,0 +1,253 @@
+<style>
+        /* Custom styles for a modern minimalist look inspired by Lightyear dashboard */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f2f5; /* Very light gray background */
+            margin: 0;
+            padding: 0;
+            display: flex; /* Use flexbox for main layout */
+            min-height: 100vh; /* Full viewport height */
+        }
+        .sidebar {
+            width: 220px; /* Slightly wider sidebar */
+            background-color: #ffffff; /* White background for sidebar */
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05); /* Softer, wider shadow */
+            padding: 20px;
+            flex-shrink: 0; /* Prevent sidebar from shrinking */
+        }
+        .sidebar-nav a {
+            display: flex; /* Align icon and text */
+            align-items: center; /* Vertically center */
+            padding: 12px 15px; /* Increased padding */
+            margin-bottom: 8px;
+            color: #555; /* Default text color */
+            text-decoration: none;
+            border-radius: 8px; /* More rounded corners */
+            transition: background-color 0.2s ease, color 0.2s ease; /* Smooth transitions */
+        }
+        .sidebar-nav a i {
+            margin-right: 12px; /* Increased space between icon and text */
+            font-size: 1.1em;
+        }
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: #e6f7ff; /* Very light blue on hover/active */
+            color: #007bff; /* Primary blue accent color */
+        }
+        .main-content-area {
+            flex-grow: 1; /* Allow main content to take remaining space */
+            padding: 30px; /* Increased padding */
+            overflow-y: auto; /* Enable scrolling for main content */
+        }
+        .content-section {
+            background-color: #fff; /* White background for content cards */
+            padding: 30px; /* Increased padding */
+            margin-bottom: 30px; /* Increased margin */
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Softer, larger shadow */
+            border: 1px solid #e0e0e0; /* Light gray border */
+        }
+        .section-heading {
+            border-bottom: 1px solid #eee; /* Lighter separator */
+            padding-bottom: 15px; /* Increased padding */
+            margin-bottom: 25px; /* Increased margin */
+            font-size: 1.6em; /* Slightly smaller heading */
+            font-weight: 600; /* Semi-bold */
+            color: #333;
+        }
+         .experience-item {
+            margin-bottom: 25px; /* Increased margin */
+            padding-bottom: 20px; /* Increased padding */
+            border-bottom: 1px solid #eee; /* Solid, lighter separator */
+        }
+        .experience-item:last-child {
+            border-bottom: none; /* No border for the last item */
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .job-title {
+            font-weight: 600; /* Semi-bold */
+            color: #333;
+            font-size: 1.1em; /* Slightly larger */
+        }
+        .company-name {
+            font-style: normal; /* Remove italic */
+            color: #666;
+            font-size: 1em;
+            margin-top: 4px;
+        }
+        .dates {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 12px; /* Increased margin */
+            display: block; /* Ensure dates are on their own line */
+        }
+        ul {
+            list-style: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 10px; /* Increased margin */
+            color: #555;
+        }
+        .profile-image-small {
+            width: 60px; /* Smaller image for sidebar */
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid #eee;
+        }
+
+        /* Dashboard Specific Styles - Modern Minimalist */
+        .dashboard-widgets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly wider widgets */
+            gap: 25px; /* Increased space between widgets */
+        }
+        .widget-card {
+            background-color: #ffffff; /* White background for widgets */
+            padding: 25px; /* Increased padding */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); /* Softer shadow */
+            cursor: pointer; /* Indicate clickable */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
+            display: flex; /* Flex for content alignment */
+            flex-direction: column;
+            justify-content: space-between; /* Space out content */
+            border: 1px solid #e0e0e0; /* Subtle border */
+        }
+         .widget-card:hover {
+             transform: translateY(-5px); /* Lift effect on hover */
+             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* More prominent shadow on hover */
+             border-color: #c3dafe; /* Light blue border on hover */
+         }
+        .widget-card h3 {
+            font-size: 1em; /* Smaller heading */
+            font-weight: 600; /* Semi-bold */
+            color: #333; /* Black color for widget titles */
+            margin-bottom: 10px; /* Adjusted margin */
+             display: flex;
+             align-items: center;
+        }
+         .widget-card h3 i {
+             margin-right: 8px; /* Adjusted margin */
+             color: #555; /* Icon color slightly lighter than text */
+         }
+        .widget-card p {
+            font-size: 0.95em; /* Slightly smaller text */
+            color: #555;
+            flex-grow: 1; /* Allow paragraph to take space */
+        }
+         .widget-link {
+             margin-top: 15px; /* Adjusted margin */
+             text-align: right;
+             font-size: 0.9em;
+             color: #007bff; /* Link color matches accent */
+             font-weight: 600; /* Semi-bold */
+             text-decoration: none; /* No underline by default */
+             transition: text-decoration 0.2s ease;
+         }
+         .widget-link:hover {
+             text-decoration: underline; /* Underline on hover */
+         }
+
+        /* Chart Container Styling */
+        .chart-container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 25px;
+            display: flex; /* Use flexbox for chart container */
+            justify-content: center; /* Center the chart */
+            align-items: center;
+            /* Added max-width and height for smaller chart */
+            max-width: 300px; /* Max width for the chart container */
+            height: 300px; /* Fixed height for the chart container */
+            margin-left: auto; /* Center the chart container if it's smaller than grid cell */
+            margin-right: auto;
+        }
+        .chart-container h3 {
+            font-size: 1.1em; /* Smaller chart title */
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center; /* Center chart title */
+            width: 100%; /* Ensure title takes full width */
+        }
+         .chart-canvas {
+             max-height: 250px; /* Max height for the canvas itself */
+             max-width: 250px; /* Max width for the canvas itself */
+         }
+
+
+        /* Hide content sections by default, except the dashboard */
+        .content-section:not(#dashboard-section) {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* Stack sidebar and main content on small screens */
+            }
+            .sidebar {
+                width: 100%; /* Full width sidebar */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Shadow at the bottom */
+                padding: 10px;
+                display: flex; /* Use flex for horizontal layout on small screens */
+                justify-content: space-around; /* Distribute nav items */
+                align-items: center;
+            }
+             .sidebar-nav {
+                 display: flex; /* Ensure nav items are in a row */
+                 flex-grow: 1; /* Allow nav to take space */
+                 justify-content: space-around; /* Distribute items evenly */
+             }
+            .sidebar-nav a {
+                flex-direction: column; /* Stack icon and text */
+                padding: 8px 5px;
+                margin-bottom: 0;
+                text-align: center;
+            }
+             .sidebar-nav a i {
+                 margin-right: 0; /* Remove margin */
+                 margin-bottom: 5px; /* Add space below icon */
+             }
+            .profile-image-small {
+                display: none; /* Hide small image in mobile nav */
+            }
+            .main-content-area {
+                padding: 15px; /* Adjusted padding */
+            }
+             .content-section {
+                 padding: 20px; /* Adjusted padding */
+                 margin-bottom: 20px;
+             }
+             .section-heading {
+                 font-size: 1.5em; /* Adjusted size */
+                 margin-bottom: 20px;
+             }
+             .dashboard-widgets {
+                 grid-template-columns: 1fr; /* Single column on small screens */
+                 gap: 15px; /* Adjusted gap */
+             }
+             .widget-card {
+                 padding: 20px; /* Adjusted padding */
+             }
+             .chart-container {
+                 padding: 20px;
+                 margin-bottom: 20px;
+                 max-width: 100%; /* Full width on small screens */
+                 height: auto; /* Auto height on small screens */
+             }
+              .chart-canvas {
+                 max-height: 200px; /* Smaller max height on small screens */
+                 max-width: 100%; /* Full width on small screens */
+              }
+        }
+    </style>
