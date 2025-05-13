@@ -1,251 +1,397 @@
-        /* Custom styles for a modern minimalist look inspired by Lightyear dashboard */
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f0f2f5; /* Very light gray background */
-            margin: 0;
-            padding: 0;
-            display: flex; /* Use flexbox for main layout */
-            min-height: 100vh; /* Full viewport height */
-        }
-        .sidebar {
-            width: 220px; /* Slightly wider sidebar */
-            background-color: #ffffff; /* White background for sidebar */
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05); /* Softer, wider shadow */
-            padding: 20px;
-            flex-shrink: 0; /* Prevent sidebar from shrinking */
-        }
-        .sidebar-nav a {
-            display: flex; /* Align icon and text */
-            align-items: center; /* Vertically center */
-            padding: 12px 15px; /* Increased padding */
-            margin-bottom: 8px;
-            color: #555; /* Default text color */
-            text-decoration: none;
-            border-radius: 8px; /* More rounded corners */
-            transition: background-color 0.2s ease, color 0.2s ease; /* Smooth transitions */
-        }
-        .sidebar-nav a i {
-            margin-right: 12px; /* Increased space between icon and text */
-            font-size: 1.1em;
-        }
-        .sidebar-nav a:hover,
-        .sidebar-nav a.active {
-            background-color: #e6f7ff; /* Very light blue on hover/active */
-            color: #007bff; /* Primary blue accent color */
-        }
-        .main-content-area {
-            flex-grow: 1; /* Allow main content to take remaining space */
-            padding: 30px; /* Increased padding */
-            overflow-y: auto; /* Enable scrolling for main content */
-        }
-        .content-section {
-            background-color: #fff; /* White background for content cards */
-            padding: 30px; /* Increased padding */
-            margin-bottom: 30px; /* Increased margin */
-            border-radius: 12px; /* More rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Softer, larger shadow */
-            border: 1px solid #e0e0e0; /* Light gray border */
-        }
-        .section-heading {
-            border-bottom: 1px solid #eee; /* Lighter separator */
-            padding-bottom: 15px; /* Increased padding */
-            margin-bottom: 25px; /* Increased margin */
-            font-size: 1.6em; /* Slightly smaller heading */
-            font-weight: 600; /* Semi-bold */
-            color: #333;
-        }
-         .experience-item {
-            margin-bottom: 25px; /* Increased margin */
-            padding-bottom: 20px; /* Increased padding */
-            border-bottom: 1px solid #eee; /* Solid, lighter separator */
-        }
-        .experience-item:last-child {
-            border-bottom: none; /* No border for the last item */
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .job-title {
-            font-weight: 600; /* Semi-bold */
-            color: #333;
-            font-size: 1.1em; /* Slightly larger */
-        }
-        .company-name {
-            font-style: normal; /* Remove italic */
-            color: #666;
-            font-size: 1em;
-            margin-top: 4px;
-        }
-        .dates {
-            color: #777;
-            font-size: 0.9em;
-            margin-bottom: 12px; /* Increased margin */
-            display: block; /* Ensure dates are on their own line */
-        }
-        ul {
-            list-style: disc;
-            margin-left: 20px;
-            padding-left: 0;
-        }
-        li {
-            margin-bottom: 10px; /* Increased margin */
-            color: #555;
-        }
-        .profile-image-small {
-            width: 60px; /* Smaller image for sidebar */
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 2px solid #eee;
-        }
+/* style.css */
+/* Baseado na imagem image_b2e711.png e pedido do utilizador */
 
-        /* Dashboard Specific Styles - Modern Minimalist */
-        .dashboard-widgets {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly wider widgets */
-            gap: 25px; /* Increased space between widgets */
-        }
-        .widget-card {
-            background-color: #ffffff; /* White background for widgets */
-            padding: 25px; /* Increased padding */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); /* Softer shadow */
-            cursor: pointer; /* Indicate clickable */
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
-            display: flex; /* Flex for content alignment */
-            flex-direction: column;
-            justify-content: space-between; /* Space out content */
-            border: 1px solid #e0e0e0; /* Subtle border */
-        }
-         .widget-card:hover {
-             transform: translateY(-5px); /* Lift effect on hover */
-             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* More prominent shadow on hover */
-             border-color: #c3dafe; /* Light blue border on hover */
-         }
-        .widget-card h3 {
-            font-size: 1em; /* Smaller heading */
-            font-weight: 600; /* Semi-bold */
-            color: #333; /* Black color for widget titles */
-            margin-bottom: 10px; /* Adjusted margin */
-             display: flex;
-             align-items: center;
-        }
-         .widget-card h3 i {
-             margin-right: 8px; /* Adjusted margin */
-             color: #555; /* Icon color slightly lighter than text */
-         }
-        .widget-card p {
-            font-size: 0.95em; /* Slightly smaller text */
-            color: #555;
-            flex-grow: 1; /* Allow paragraph to take space */
-        }
-         .widget-link {
-             margin-top: 15px; /* Adjusted margin */
-             text-align: right;
-             font-size: 0.9em;
-             color: #007bff; /* Link color matches accent */
-             font-weight: 600; /* Semi-bold */
-             text-decoration: none; /* No underline by default */
-             transition: text-decoration 0.2s ease;
-         }
-         .widget-link:hover {
-             text-decoration: underline; /* Underline on hover */
-         }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    color: #333333; /* Cor do texto principal */
+    background-color: #F7F8FA; /* Fundo geral da página (cinza muito claro) */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden; /* Evita scroll no body quando o conteúdo principal tem scroll */
+}
 
-        /* Chart Container Styling */
-        .chart-container {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e0e0e0;
-            margin-bottom: 25px;
-            display: flex; /* Use flexbox for chart container */
-            justify-content: center; /* Center the chart */
-            align-items: center;
-            /* Added max-width and height for smaller chart */
-            max-width: 300px; /* Max width for the chart container */
-            height: 300px; /* Fixed height for the chart container */
-            margin-left: auto; /* Center the chart container if it's smaller than grid cell */
-            margin-right: auto;
-        }
-        .chart-container h3 {
-            font-size: 1.1em; /* Smaller chart title */
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-            text-align: center; /* Center chart title */
-            width: 100%; /* Ensure title takes full width */
-        }
-         .chart-canvas {
-             max-height: 250px; /* Max height for the canvas itself */
-             max-width: 250px; /* Max width for the canvas itself */
-         }
+.sidebar {
+    width: 240px; /* Largura do sidebar */
+    background-color: #F7F8FA; /* Mesma cor do fundo da página */
+    padding: 25px 15px;
+    flex-shrink: 0; /* Impede que o sidebar encolha */
+    overflow-y: auto; /* Scroll no sidebar se o conteúdo for longo */
+    border-right: 1px solid #E8E8E8; /* Linha separadora subtil */
+}
+
+.profile-summary-sidebar {
+    text-align: center;
+    margin-bottom: 2rem; /* Espaço abaixo do sumário do perfil */
+}
+
+.profile-image {
+    width: 70px; /* Tamanho da imagem de perfil */
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%; /* Imagem redonda */
+    margin: 0 auto 0.75rem auto; /* Centraliza e adiciona margem inferior */
+    border: 2px solid #FFFFFF; /* Borda branca, destaca-se no fundo cinza */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.profile-summary-sidebar h1 {
+    color: #212529; /* Cor do nome */
+    font-weight: 600; /* Peso da fonte do nome */
+    font-size: 1.125rem; /* Tamanho da fonte do nome */
+    margin-bottom: 0.25rem;
+}
+
+.profile-summary-sidebar p {
+    color: #6c757d; /* Cor do subtítulo (Product Manager) */
+    font-size: 0.875rem; /* Tamanho do subtítulo */
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 10px 18px; /* Espaçamento interno dos links */
+    margin-bottom: 6px; /* Espaço entre links */
+    color: #495057; /* Cor do texto dos links */
+    text-decoration: none;
+    border-radius: 6px; /* Cantos arredondados dos links */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 0.95em; /* Tamanho da fonte dos links */
+}
+
+.sidebar-nav a i {
+    margin-right: 12px; /* Espaço entre ícone e texto */
+    width: 20px; /* Largura fixa para alinhar ícones */
+    text-align: center;
+    color: #6c757d; /* Cor dos ícones */
+    font-size: 1.05rem; /* Tamanho dos ícones */
+}
+
+.sidebar-nav a:hover {
+    background-color: #E9ECEF; /* Fundo do link no hover (cinza mais escuro) */
+    color: #212529; /* Cor do texto do link no hover */
+}
+
+.sidebar-nav a.active {
+    background-color: #FFFFFF; /* Fundo BRANCO para o item ativo */
+    color: #007bff; /* Cor do texto do item ativo (azul) */
+    font-weight: 500; /* Peso da fonte para o item ativo */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); /* Sombra subtil para o item ativo */
+}
+
+.sidebar-nav a.active i {
+    color: #007bff; /* Cor do ícone para o item ativo (azul) */
+}
+
+.main-content-area {
+    flex-grow: 1; /* Ocupa o espaço restante */
+    padding: 30px; /* Espaçamento interno da área de conteúdo */
+    overflow-y: auto; /* Scroll na área de conteúdo se necessário */
+    background-color: #F7F8FA; /* Mesma cor do fundo da página */
+}
+
+/* Estilo para os cartões de conteúdo (widgets, Profile, Experience, etc.) */
+.content-card-style {
+    background-color: #FFFFFF; /* FUNDO BRANCO para estes cartões */
+    padding: 25px 30px;
+    margin-bottom: 25px; /* Espaço entre cartões */
+    border-radius: 12px; /* Cantos arredondados (como na imagem de exemplo) */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra mais suave e difusa */
+    border: 1px solid #EDEDED; /* Borda muito subtil para os cartões brancos */
+}
+
+/* Título principal do dashboard (ex: "Dashboard Overview") */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem; /* Espaço abaixo do cabeçalho do dashboard */
+    border-bottom: 1px solid #E8E8E8; /* Linha abaixo do título, sobre o fundo cinza da página */
+}
+
+.section-title-main { /* Usado para "Dashboard Overview" */
+    font-size: 1.75rem; /* Tamanho do título principal */
+    font-weight: 600;
+    color: #212529; /* Cor do título */
+    margin: 0; /* Remover margens padrão de h2 se houver */
+}
+
+.top-right-icons {
+    display: flex;
+    align-items: center;
+}
+
+.top-right-icons i {
+    font-size: 1.2rem; /* Tamanho dos ícones */
+    color: #6c757d; /* Cor dos ícones */
+    cursor: pointer;
+    transition: color 0.2s ease;
+    margin-left: 1rem; /* Espaço entre ícones */
+}
+.top-right-icons i:first-child {
+    margin-left: 0;
+}
+.top-right-icons i:hover {
+    color: #007bff; /* Cor dos ícones no hover */
+}
+
+/* Grelha dos widgets */
+.dashboard-widgets {
+    display: grid;
+    grid-template-columns: 1fr; /* Uma coluna por padrão */
+    gap: 25px; /* Espaço entre widgets */
+}
+
+@media (min-width: 768px) { /* Para ecrãs médios (tablets) */
+    .dashboard-widgets {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Duas colunas */
+    }
+}
+
+@media (min-width: 1024px) { /* Para ecrãs largos (desktops) */
+    .dashboard-widgets {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* Três colunas */
+    }
+}
+
+.widget-card { /* Estilos adicionais ou overrides para widgets, se necessário */
+    /* Herda o estilo de .content-card-style (fundo branco, padding, etc.) */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.widget-card:hover {
+     transform: translateY(-4px); /* Efeito de elevação no hover */
+     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07); /* Sombra mais pronunciada no hover */
+}
+
+.widget-card h3 {
+    font-size: 1.05rem; /* Tamanho do título do widget */
+    font-weight: 600;
+    color: #343A40;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+.widget-card h3 i { /* Ícones dentro dos títulos dos widgets */
+    margin-right: 0.6rem; /* Espaço à direita do ícone */
+    font-size: 1rem; /* Tamanho do ícone no título do widget */
+    /* Cores específicas dos ícones (icon-blue, icon-green, etc.) */
+}
+.icon-blue { color: #007bff; }
+.icon-green { color: #28a745; }
+.icon-yellow { color: #ffc107; }
+.icon-red { color: #dc3545; }
+.icon-purple { color: #6f42c1; }
+.icon-indigo { color: #6610f2; }
 
 
-        /* Hide content sections by default, except the dashboard */
-        .content-section:not(#dashboard-section) {
-            display: none;
-        }
+.widget-card p {
+    font-size: 0.875rem;
+    color: #495057; /* Cor do texto de parágrafo nos widgets */
+    line-height: 1.5;
+    flex-grow: 1; /* Para que o parágrafo ocupe espaço e alinhe o link em baixo */
+    margin-bottom: 1rem; /* Espaço antes do link "View X" */
+}
+.widget-link {
+    margin-top: auto; /* Empurra o link para o fundo do widget */
+    text-align: right;
+    font-size: 0.875rem;
+    color: #007bff; /* Cor dos links "View X" */
+    font-weight: 500;
+    text-decoration: none;
+}
+.widget-link:hover {
+    text-decoration: underline;
+}
 
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column; /* Stack sidebar and main content on small screens */
-            }
-            .sidebar {
-                width: 100%; /* Full width sidebar */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Shadow at the bottom */
-                padding: 10px;
-                display: flex; /* Use flex for horizontal layout on small screens */
-                justify-content: space-around; /* Distribute nav items */
-                align-items: center;
-            }
-             .sidebar-nav {
-                 display: flex; /* Ensure nav items are in a row */
-                 flex-grow: 1; /* Allow nav to take space */
-                 justify-content: space-around; /* Distribute items evenly */
-             }
-            .sidebar-nav a {
-                flex-direction: column; /* Stack icon and text */
-                padding: 8px 5px;
-                margin-bottom: 0;
-                text-align: center;
-            }
-             .sidebar-nav a i {
-                 margin-right: 0; /* Remove margin */
-                 margin-bottom: 5px; /* Add space below icon */
-             }
-            .profile-image-small {
-                display: none; /* Hide small image in mobile nav */
-            }
-            .main-content-area {
-                padding: 15px; /* Adjusted padding */
-            }
-             .content-section {
-                 padding: 20px; /* Adjusted padding */
-                 margin-bottom: 20px;
-             }
-             .section-heading {
-                 font-size: 1.5em; /* Adjusted size */
-                 margin-bottom: 20px;
-             }
-             .dashboard-widgets {
-                 grid-template-columns: 1fr; /* Single column on small screens */
-                 gap: 15px; /* Adjusted gap */
-             }
-             .widget-card {
-                 padding: 20px; /* Adjusted padding */
-             }
-             .chart-container {
-                 padding: 20px;
-                 margin-bottom: 20px;
-                 max-width: 100%; /* Full width on small screens */
-                 height: auto; /* Auto height on small screens */
-             }
-              .chart-canvas {
-                 max-height: 200px; /* Smaller max height on small screens */
-                 max-width: 100%; /* Full width on small screens */
-              }
-        }
+.widget-chart-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    height: 150px; /* Altura fixa para o container do gráfico */
+    align-self: center;
+}
+.widget-chart-container canvas {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/* Estilos para títulos e conteúdo dentro dos cartões brancos (Profile, Experience, etc.) */
+.section-title-card { /* Títulos como "Profile", "Experience" */
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212529;
+    border-bottom: 1px solid #E8E8E8; /* Linha abaixo do título, sobre o fundo branco */
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.card-subtitle { /* Subtítulos como "Experience Summary", "Education" */
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #343A40;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.content-card-style p,
+.content-card-style li {
+    color: #374151;
+    font-size: 0.95rem; /* Tamanho do texto geral nos cartões */
+    line-height: 1.65;
+}
+.content-card-style ul {
+    list-style: disc;
+    margin-left: 1.25rem; /* Recuo da lista */
+    padding-left: 0.5rem; /* Espaço adicional para os marcadores */
+}
+.content-card-style li {
+    margin-bottom: 0.5rem; /* Espaço entre itens da lista */
+}
+.content-card-style a { /* Links dentro do conteúdo dos cartões */
+    color: #007bff;
+    text-decoration: none;
+}
+.content-card-style a:hover {
+    text-decoration: underline;
+}
+.card-paragraph-margin { /* Para o parágrafo específico em Education */
+    margin-bottom: 1.5rem !important;
+}
+
+
+/* Estilos para secção de Experience */
+.experience-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #E8E8E8; /* Separador entre itens de experiência */
+}
+.experience-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.job-title {
+    font-weight: 600;
+    color: #343A40; /* Cor dos títulos de cargo */
+    font-size: 1.1rem;
+    margin-bottom: 0.15rem;
+}
+.company-name {
+    color: #555; /* Cor do nome da empresa */
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+}
+.dates {
+    color: #777; /* Cor das datas */
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Empilha sidebar e conteúdo */
+    }
+    .sidebar {
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        padding: 10px;
+        display: flex; /* Nav items em linha */
+        justify-content: space-around;
+        align-items: center;
+        border-right: none;
+        border-bottom: 1px solid #E0E0E0;
+        /* background-color: #F7F8FA; já herdado */
+    }
+    .sidebar-nav {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-around;
+    }
+    .sidebar-nav a {
+        flex-direction: column; /* Ícone em cima do texto */
+        padding: 8px 5px;
+        margin-bottom: 0;
+        text-align: center;
+        font-size: 0.75em; /* Texto menor na nav mobile */
+    }
+    .sidebar-nav a.active {
+         background-color: #FFFFFF; /* Fundo do item ativo em mobile */
+         border-radius: 6px;
+    }
+    .sidebar-nav a i {
+        margin-right: 0;
+        margin-bottom: 4px; /* Espaço entre ícone e texto */
+        font-size: 1.1em; /* Ícones um pouco menores */
+    }
+    .profile-summary-sidebar { display: none; } /* Oculta sumário do perfil no sidebar em mobile */
+
+    .main-content-area {
+        padding: 20px; /* Menos padding em mobile */
+        /* background-color: #F7F8FA; já herdado */
+    }
+    .content-card-style {
+        padding: 20px; /* Menos padding nos cartões em mobile */
+        margin-bottom: 20px;
+        /* background-color: #FFFFFF; já herdado */
+    }
+    .section-title-main,
+    .section-title-card {
+        font-size: 1.3rem; /* Títulos menores em mobile */
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+    }
+    .dashboard-header {
+        flex-direction: column; /* Título e ícones empilhados */
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+    }
+    .dashboard-header .section-title-main {
+        margin-bottom: 0.75rem; /* Espaço entre título e ícones quando empilhados */
+    }
+
+    .dashboard-widgets {
+        grid-template-columns: 1fr; /* Uma coluna sempre em mobile */
+        gap: 15px;
+    }
+    .widget-card {
+        padding: 15px;
+    }
+    .widget-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    .widget-card p {
+       font-size: 0.8rem;
+       margin-bottom: 0.75rem;
+    }
+    .widget-chart-container {
+        margin-top: 0.5rem;
+        height: 120px; /* Gráfico menor em mobile */
+    }
+    .top-right-icons i {
+        font-size: 1rem;
+        margin-left: 0.75rem;
+    }
+    .card-subtitle {
+        font-size: 1.1rem;
+    }
+    .content-card-style p,
+    .content-card-style li {
+        font-size: 0.9rem;
+    }
+}
