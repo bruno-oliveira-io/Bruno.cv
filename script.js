@@ -1,30 +1,38 @@
 // scripts.js
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Carregado e Script Iniciado.");
+    // alert("Script Iniciado!"); // Descomente esta linha para um teste muito básico se o script está a ser carregado e executado
 
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
-    const contentSections = document.querySelectorAll('.main-content-area > div[id$="-section"]');
+    const contentSections = document.querySelectorAll('.main-content-area > div[id$="-section"]'); // Seleciona divs filhos diretos que terminam com -section
     const widgetCards = document.querySelectorAll('.dashboard-widgets .widget-card');
 
     console.log("Nav Links Encontrados:", navLinks.length);
-    console.log("Content Sections Encontradas:", contentSections.length, contentSections);
+    if (navLinks.length === 0) console.warn("Nenhum .nav-link encontrado em .sidebar-nav!");
+
+    console.log("Content Sections Encontradas:", contentSections.length);
+    if (contentSections.length === 0) console.warn("Nenhuma secção de conteúdo encontrada em .main-content-area > div[id$='-section']!");
+    // contentSections.forEach(s => console.log("Secção encontrada:", s.id)); // Log detalhado das secções
+
     console.log("Widget Cards Encontrados:", widgetCards.length);
+    if (widgetCards.length === 0) console.warn("Nenhum .widget-card encontrado em .dashboard-widgets!");
+
 
     const showSection = (sectionId) => {
         console.log("showSection chamada para:", sectionId);
         let sectionFound = false;
         contentSections.forEach(section => {
             if (section.id === sectionId) {
-                section.style.display = 'block';
+                section.style.display = 'block'; // Assegura que é 'block' para ser visível
                 sectionFound = true;
                 console.log("Mostrando secção:", section.id);
             } else {
                 section.style.display = 'none';
-                // console.log("Escondendo secção:", section.id); // Descomentar para log mais detalhado
+                // console.log("Escondendo secção:", section.id);
             }
         });
         if (!sectionFound) {
-            console.warn("Nenhuma secção encontrada com o ID:", sectionId);
+            console.error("ERRO: Nenhuma secção encontrada com o ID:", sectionId); // Mudado para erro para maior destaque
         }
 
         if (sectionId === 'dashboard-section') {
@@ -43,11 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    navLinks.forEach(link => {
+    navLinks.forEach((link, index) => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
+            // alert(`Link ${index} clicado!`); // Teste básico para ver se o evento é capturado
             const targetSectionId = link.getAttribute('data-section');
-            console.log("Nav Link Clicado. Target:", targetSectionId);
+            console.log(`Nav Link #${index} ('${link.textContent.trim()}') Clicado. Target:`, targetSectionId);
             if (targetSectionId) {
                 showSection(targetSectionId);
                 updateActiveLink(targetSectionId);
@@ -57,25 +66,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.warn("history.pushState falhou:", error);
                 }
             } else {
-                console.warn("Nav Link clicado não tem data-section:", link);
+                console.error("Nav Link clicado não tem data-section:", link);
             }
         });
     });
 
-    widgetCards.forEach(card => {
+    widgetCards.forEach((card, index) => {
         card.addEventListener('click', () => {
+            // alert(`Widget ${index} clicado!`); // Teste básico
             const targetSectionId = card.getAttribute('data-section-target');
-            console.log("Widget Card Clicado. Target:", targetSectionId);
-            if (targetSectionId && document.getElementById(targetSectionId)) {
-                showSection(targetSectionId);
-                updateActiveLink(targetSectionId); // Atualiza o link ativo no sidebar
-                 try {
-                    history.pushState(null, '', `#${targetSectionId.replace('-section', '')}`);
-                } catch (error) {
-                    console.warn("history.pushState falhou:", error);
+            console.log(`Widget Card #${index} Clicado. Target:`, targetSectionId);
+            if (targetSectionId) {
+                const targetElement = document.getElementById(targetSectionId);
+                if (targetElement) {
+                    showSection(targetSectionId);
+                    updateActiveLink(targetSectionId);
+                    try {
+                        history.pushState(null, '', `#${targetSectionId.replace('-section', '')}`);
+                    } catch (error) {
+                        console.warn("history.pushState falhou:", error);
+                    }
+                } else {
+                    console.error(`Elemento alvo do Widget Card ('${targetSectionId}') não encontrado no DOM.`);
                 }
             } else {
-                console.warn("Widget Card clicado não tem data-section-target válido ou o elemento não foi encontrado:", targetSectionId, card);
+                console.error("Widget Card clicado não tem data-section-target válido:", card);
             }
         });
     });
@@ -140,15 +155,19 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Hash Inicial:", initialHash);
 
     if (initialHash) {
-        // Tenta corresponder ao ID completo com '-section' ou apenas ao nome base
         const potentialSectionIdWithSuffix = initialHash.endsWith('-section') ? initialHash : initialHash + '-section';
-        const potentialSectionIdWithoutSuffix = initialHash.replace('-section', '');
+        let idToTest = potentialSectionIdWithSuffix;
 
-        if (document.getElementById(potentialSectionIdWithSuffix)) {
-            initialSectionId = potentialSectionIdWithSuffix;
-        } else if (document.getElementById(potentialSectionIdWithoutSuffix + '-section')) {
-            // Se o hash era, por exemplo, #profile e existe #profile-section
-            initialSectionId = potentialSectionIdWithoutSuffix + '-section';
+        if (!document.getElementById(idToTest)) {
+            // Tenta o id base (sem -section) e adiciona -section
+            const baseId = initialHash.replace('-section', '');
+            idToTest = baseId + '-section';
+        }
+        
+        if (document.getElementById(idToTest)) {
+            initialSectionId = idToTest;
+        } else {
+            console.warn(`Secção inicial do Hash ('${initialHash}' -> tentado '${idToTest}') não encontrada, a usar dashboard por defeito.`);
         }
     }
     console.log("Secção Inicial a ser mostrada:", initialSectionId);
