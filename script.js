@@ -1,21 +1,19 @@
 // scripts.js
 document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
-    const contentSections = document.querySelectorAll('.main-content-area > div[id$="-section"]'); // Seleciona divs filhos diretos que terminam com -section
+    const contentSections = document.querySelectorAll('.main-content-area > div[id$="-section"]');
     const widgetCards = document.querySelectorAll('.dashboard-widgets .widget-card');
 
     const showSection = (sectionId) => {
         contentSections.forEach(section => {
-            // A secção do dashboard é um contentor, não um cartão, então não a escondemos da mesma forma
             if (section.id === 'dashboard-section' && sectionId === 'dashboard-section') {
-                section.style.display = 'block'; // Ou 'flex' ou 'grid' dependendo do layout interno
+                section.style.display = 'block';
             } else if (section.id === 'dashboard-section' && sectionId !== 'dashboard-section') {
                 section.style.display = 'none';
-            } else { // Para todas as outras secções que são cartões
+            } else {
                  section.style.display = (section.id === sectionId) ? 'block' : 'none';
             }
         });
-        // Renderiza gráficos apenas quando a secção do dashboard é mostrada
         if (sectionId === 'dashboard-section') {
             renderCharts();
         }
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 history.pushState(null, '', link.getAttribute('href'));
             } catch (error)
                 {
-                // Em alguns ambientes (ex: snippets de código), pushState pode não funcionar
                 console.warn("history.pushState is not available or failed:", error);
             }
         });
@@ -62,24 +59,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Chart Rendering ---
-    // Dados do gráfico (mantidos do seu script original)
     const experienceHighlightsData = {
         labels: ['Software Development', 'Project Management', 'Product Management'],
         datasets: [{
             label: 'Years of Experience',
             data: [7, 9, 6],
-            backgroundColor: [ // Cores para o gráfico de pizza
-                '#5DA5DA', // Azul
-                '#60BDA8', // Verde-água
-                '#F1A861'  // Laranja/Pêssego
+            backgroundColor: [
+                '#5DA5DA',
+                '#60BDA8',
+                '#F1A861'
             ],
-            borderColor: '#FFFFFF', // Borda branca entre segmentos
+            borderColor: '#FFFFFF',
             borderWidth: 2
         }]
     };
 
-    // Variável global para a instância do gráfico para poder destruí-la
     window.experienceHighlightsChartInstance = null;
 
     const renderCharts = () => {
@@ -90,35 +84,33 @@ document.addEventListener('DOMContentLoaded', () => {
         if (experienceHighlightsCanvas) {
             const experienceHighlightsCtx = experienceHighlightsCanvas.getContext('2d');
             window.experienceHighlightsChartInstance = new Chart(experienceHighlightsCtx, {
-                type: 'pie', // Tipo de gráfico
+                type: 'pie',
                 data: experienceHighlightsData,
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                      plugins: {
                         legend: {
-                            position: 'bottom', // Posição da legenda
+                            position: 'bottom',
                             labels: {
-                                color: '#495057', // Cor do texto da legenda
+                                color: '#495057',
                                 font: { size: 11 },
                                 boxWidth: 15,
                                 padding: 15
                             }
                         },
-                        title: { // Título do gráfico (opcional)
-                            display: false, // Desabilitado para um look mais limpo
-                            // text: 'Experience Breakdown'
+                        title: {
+                            display: false,
                         }
                      },
-                     cutout: '0%', // '0%' para gráfico de pizza, >0% para doughnut
+                     cutout: '0%',
                 }
             });
         }
     };
 
-    // Lógica para mostrar a secção inicial baseada no URL hash
     const initialHash = window.location.hash.substring(1);
-    let initialSectionId = 'dashboard-section'; // Secção padrão
+    let initialSectionId = 'dashboard-section';
 
     if (initialHash) {
         const potentialSectionId = initialHash.endsWith('-section') ? initialHash : initialHash + '-section';
