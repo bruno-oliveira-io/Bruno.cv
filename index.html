@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bruno Oliveira - Product Manager [Final v8]</title>
+    <title>Bruno Oliveira - Product Manager [Final v9]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -144,7 +144,8 @@
             padding: 1.75rem;
             margin-left: var(--sidebar-width-desktop);
             flex-grow: 1;
-            width: calc(100% - var(--sidebar-width-desktop)); /* Garante que não excede a largura da viewport */
+            width: calc(100% - var(--sidebar-width-desktop));
+            overflow-x: hidden; /* Garante que conteúdo interno não cause scroll horizontal */
         }
         .main-content-area h2.section-title {
             font-size: var(--font-size-xl);
@@ -166,7 +167,7 @@
             animation: fadeInUp 0.55s ease forwards;
             margin-bottom: 3rem; 
             position: relative;
-            min-height: 180px; /* Aumentado ligeiramente para consistência */
+            min-height: 180px;
         }
         .card h3 {
             font-size: var(--font-size-lg);
@@ -202,19 +203,19 @@
 
         .widget-grid {
             display: grid;
-            gap: 2.5rem; /* Ajustado para um espaçamento mais equilibrado */
-            grid-template-columns: 1fr; /* Default para mobile, uma coluna */
+            gap: 2.5rem; 
+            grid-template-columns: minmax(0, 1fr); /* Garante que a coluna única não exceda o container */
         }
         @media (min-width: 1024px) { /* Desktop: lg e acima */
             .widget-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr)); /* Duas colunas de largura igual */
-                gap: 3rem; /* Espaçamento maior em desktop */
+                grid-template-columns: repeat(2, minmax(0, 1fr)); 
+                gap: 3rem; 
             }
         }
          @media (min-width: 768px) and (max-width: 1023px) { /* Tablet: md */
             .widget-grid {
-                grid-template-columns: 1fr; /* Uma coluna em tablets para melhor leitura */
-                gap: 2rem; /* Espaçamento para tablet */
+                grid-template-columns: minmax(0, 1fr); 
+                gap: 2rem; 
             }
         }
 
@@ -227,6 +228,8 @@
         }
         .widget.card {
              animation-delay: calc(var(--widget-index, 0) * 0.08s + 0.04s);
+             width: 100%; /* Garante que o widget não tente ser mais largo que a coluna da grelha */
+             box-sizing: border-box; /* Inclui padding e border na largura total */
         }
         .content-section.card { animation-delay: 0.04s; }
 
@@ -264,7 +267,7 @@
             .main-content-area { 
                 margin-left: 0; 
                 padding: 1rem; 
-                width: 100%; /* Garante que ocupa a largura total em mobile */
+                width: 100%; 
             }
             .content-header { 
                 padding-right: 1rem; 
@@ -280,12 +283,15 @@
             .card { 
                 padding: 1rem; 
                 margin-bottom: 1.5rem; 
-                min-height: auto; /* Remove min-height em mobile se não for necessário */
+                min-height: auto; 
             }
             .card h3 { font-size: 1.05rem; }
             .widget-grid { 
-                grid-template-columns: 1fr; 
+                grid-template-columns: minmax(0, 1fr); /* Reforçado para mobile */
                 gap: 1.5rem; 
+            }
+            .widget.card {
+                width: 100%; /* Garante que o widget ocupa a largura da coluna em mobile */
             }
             .widget-details-link { 
                 font-size: calc(var(--font-size-xs) * 0.9); 
@@ -388,8 +394,7 @@
             </div>
         </header>
         <div id="pageContent">
-            {/* O conteúdo da página (dashboard ou secções) será renderizado aqui pelo JavaScript */}
-        </div>
+            </div>
     </main>
 
     <script>
@@ -486,8 +491,8 @@
             if (typeof lucide !== 'undefined' && lucide && typeof lucide.createIcons === 'function') {
                 lucide.createIcons();
             } else {
-                console.warn("Lucide Icons library not fully loaded yet. Retrying...");
-                setTimeout(callLucide, 200); // Tenta novamente com um delay maior
+                console.warn("Lucide Icons library not fully loaded yet. Retrying in 100ms...");
+                setTimeout(callLucide, 100); 
             }
         }
 
@@ -612,7 +617,10 @@
                 </div>
             `;
             callLucide();
-            renderSkillsChart(); 
+            // Defer chart rendering slightly to ensure canvas container is ready
+            requestAnimationFrame(() => {
+                renderSkillsChart();
+            });
             addWidgetEventListeners(); 
         }
 
