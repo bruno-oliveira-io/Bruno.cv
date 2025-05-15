@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bruno Oliveira - Product Manager [Next Level Final]</title>
+    <title>Bruno Oliveira - Product Manager [Final v3]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -38,7 +38,6 @@
             overflow-x: hidden;
         }
 
-        /* Estilos da Sidebar */
         .sidebar {
             background-color: var(--bg-secondary);
             width: var(--sidebar-width-desktop); 
@@ -48,6 +47,8 @@
             top: 0;
             left: 0;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         .sidebar .profile-avatar {
             border: 2px solid var(--accent-glow);
@@ -94,8 +95,12 @@
         }
         .sidebar .profile-info h1 { font-size: 1rem; }
         .sidebar .profile-info p { font-size: var(--font-size-xs); }
+        .sidebar-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 1rem 0.75rem;
+        }
 
-        /* Header da Área de Conteúdo */
         .content-header {
             display: flex;
             justify-content: flex-end;
@@ -138,6 +143,7 @@
         .main-content-area {
             padding: 1.75rem;
             margin-left: var(--sidebar-width-desktop);
+            flex-grow: 1;
         }
         .main-content-area h2.section-title {
             font-size: var(--font-size-xl);
@@ -239,36 +245,67 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-darker); }
 
         @media (max-width: 767px) {
-            .sidebar { left: -15rem; width: 15rem; }
+            .sidebar { 
+                left: calc(-1 * var(--sidebar-width-desktop)); 
+                width: var(--sidebar-width-desktop); 
+            }
             .sidebar.open { left: 0; }
-            .sidebar:not(.open) { left: -15rem; }
             
-            .main-content-area { margin-left: 0; padding: 1rem; }
-            .content-header { padding-right: 1rem; padding-left: 1rem; margin-bottom:1rem;}
+            .main-content-area { 
+                margin-left: 0; 
+                padding: 1rem; 
+            }
+            .content-header { 
+                padding-right: 1rem; 
+                padding-left: 1rem; 
+                margin-bottom:1rem;
+            }
             .content-header .user-display { margin-left: 0.5rem;}
             
-            .main-content-area h2.section-title { font-size: 1.5rem; margin-bottom: 1.25rem; }
-            .card { padding: 1rem; margin-bottom: 1.5rem; }
+            .main-content-area h2.section-title { 
+                font-size: 1.5rem; 
+                margin-bottom: 1.25rem; 
+            }
+            .card { 
+                padding: 1rem; 
+                margin-bottom: 1.5rem; 
+            }
             .card h3 { font-size: 1.05rem; }
-            .widget-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .widget-details-link { font-size: calc(var(--font-size-xs) * 0.9); bottom: 0.5rem; right: 0.75rem;}
+            .widget-grid { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+            }
+            .widget-details-link { 
+                font-size: calc(var(--font-size-xs) * 0.9); 
+                bottom: 0.5rem; 
+                right: 0.75rem;
+            }
 
             .mobile-menu-button {
-                top: 0.75rem; left: 0.75rem; padding: 0.5rem; z-index: 100;
-                background-color: var(--bg-card); color: var(--accent-glow);
-                border-radius: 50%; box-shadow: 0 0 10px rgba(223, 255, 0, 0.25);
-                border: 1px solid var(--accent-darker); cursor: pointer; display:block;
+                display: block; 
+                position: fixed; 
+                top: 0.75rem; 
+                left: 0.75rem; 
+                z-index: 100; 
+                background-color: var(--bg-card); 
+                color: var(--accent-glow);
+                padding: 0.5rem; 
+                border-radius: 50%;
+                box-shadow: 0 0 10px rgba(223, 255, 0, 0.25);
+                border: 1px solid var(--accent-darker); 
+                cursor: pointer;
             }
-            .overlay {
-                display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background-color: rgba(0,0,0,0.75); z-index: 40;
+            .overlay { 
+                display: none; 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%;
+                background-color: rgba(0,0,0,0.75); 
+                z-index: 40; 
             }
             .overlay.active { display: block; }
-        }
-        .sidebar-divider {
-            height: 1px;
-            background-color: var(--border-color);
-            margin: 1rem 0.75rem;
         }
     </style>
 </head>
@@ -343,6 +380,7 @@
     </main>
 
     <script>
+        // Dados do CV (conteúdo em Inglês)
         const cvData = {
             name: "Bruno Oliveira",
             title: "Product Manager",
@@ -353,7 +391,7 @@
                 linkedinUrl: "https://www.linkedin.com/in/brunuoliveira/"
             },
             experienceSummary: "For several years, I've immersed myself in the world of Product. It's here I discovered my true passion: to deeply understand user needs—the 'why' and 'what'—and to craft solutions for real-world challenges. I thrive in the dynamic environments of Startups and Scaleups, innovative and mission-driven companies where I genuinely love to contribute and make an impact. My journey has equipped me with a versatile skill set, enabling me to navigate complex product landscapes and deliver tangible results. I am constantly seeking to refine my approach, leveraging data and user feedback to drive impactful product decisions.",
-            profile: [ // Textos encurtados para o widget "At a Glance"
+            profile: [ 
                 "7+ yrs Agile (9+ Waterfall)",
                 "4+ yrs Startups/Scaleups",
                 "6+ yrs Product Manager (5+ PO)",
@@ -430,7 +468,15 @@
         const sidebarElement = document.getElementById('sidebar');
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const overlayElement = document.getElementById('overlay');
-        let skillsChart = null;
+        let skillsChart = null; 
+
+        function callLucide() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                console.warn("Lucide Icons library not loaded yet.");
+            }
+        }
 
         function reinitializeAnimationsForContent() {
             const animatedElements = pageContentElement.querySelectorAll('.section-title, .card');
@@ -443,7 +489,7 @@
 
         function renderSkillsChart() {
             const chartCanvas = document.getElementById('skillsChart');
-            if (!chartCanvas) return;
+            if (!chartCanvas) return; 
             const ctx = chartCanvas.getContext('2d');
             if (skillsChart) skillsChart.destroy();
 
@@ -452,49 +498,74 @@
                 data: {
                     labels: ['Product Strategy', 'Roadmapping', 'Agile', 'UX/UI', 'Stakeholder Mgt.', 'Market Analysis'],
                     datasets: [{
-                        label: 'Proficiency',
-                        data: [90, 85, 95, 75, 88, 80],
-                        backgroundColor: 'rgba(223, 255, 0, 0.25)',
-                        borderColor: 'var(--accent-glow)',
+                        label: 'Proficiency', 
+                        data: [90, 85, 95, 75, 88, 80], 
+                        backgroundColor: 'rgba(223, 255, 0, 0.25)', 
+                        borderColor: 'var(--accent-glow)', 
                         pointBackgroundColor: 'var(--accent-glow)',
-                        pointBorderColor: 'var(--bg-card)',
+                        pointBorderColor: 'var(--bg-card)', 
                         pointHoverBackgroundColor: 'var(--bg-card)',
                         pointHoverBorderColor: 'var(--accent-glow)',
-                        borderWidth: 1.5, pointRadius: 2.5, pointHoverRadius: 4.5
+                        borderWidth: 1.5, 
+                        pointRadius: 2.5, 
+                        pointHoverRadius: 4.5
                     }]
                 },
                 options: {
-                    responsive: true, maintainAspectRatio: false,
-                    scales: { r: {
-                        angleLines: { color: 'rgba(223, 255, 0, 0.15)' },
-                        grid: { color: 'rgba(223, 255, 0, 0.15)' },
-                        pointLabels: { color: 'var(--text-primary)', font: { size: 8, weight: '400' } }, // Cor do texto das labels dos eixos
-                        ticks: { backdropColor: 'transparent', color: 'var(--text-secondary)', font: { size: 7 }, stepSize: 20 } // Cor do texto dos números dos eixos
-                    }},
-                    plugins: { legend: { display: false }, tooltip: {
-                        backgroundColor: 'var(--bg-secondary)', titleColor: 'var(--accent-glow)',
-                        bodyColor: 'var(--text-primary)', borderColor: 'var(--border-color)',
-                        borderWidth: 1, padding: 7, cornerRadius: 3,
-                        bodyFont: { size: 8 }, titleFont: { size: 9, weight: 'bold'}
-                    }}
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(223, 255, 0, 0.15)' }, 
+                            grid: { color: 'rgba(223, 255, 0, 0.15)' }, 
+                            pointLabels: { 
+                                color: 'var(--text-primary)', 
+                                font: { size: 8, weight: '400' } 
+                            },
+                            ticks: { 
+                                backdropColor: 'transparent', 
+                                color: 'var(--text-primary)', 
+                                font: { size: 7 }, 
+                                stepSize: 20,
+                                min: 0, 
+                                max: 100 
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { 
+                            display: false 
+                        },
+                        tooltip: { 
+                            backgroundColor: 'var(--bg-secondary)',
+                            titleColor: 'var(--accent-glow)',
+                            bodyColor: 'var(--text-primary)',
+                            borderColor: 'var(--border-color)',
+                            borderWidth: 1,
+                            padding: 7, 
+                            cornerRadius: 3, 
+                            bodyFont: { size: 8 }, 
+                            titleFont: { size: 9, weight: 'bold'} 
+                        }
+                    }
                 }
             });
         }
 
         function renderDashboard() {
-            let widgetIndex = 0;
+            let widgetIndex = 0; 
             pageContentElement.innerHTML = `
                 <h2 class="section-title">Dashboard Overview</h2>
                 <div class="widget-grid">
                     <div class="widget card" data-section="about" style="--widget-index: ${widgetIndex++}; cursor: pointer;">
                         <h3>Experience Snapshot</h3>
-                        <p>${cvData.experienceSummary.substring(0, 300)}...</p> {/* Mais texto */}
+                        <p>${cvData.experienceSummary.substring(0, 300)}...</p>
                         <a href="#" class="widget-details-link" aria-label="View details about experience snapshot">details <i data-lucide="arrow-right" class="inline-block"></i></a>
                     </div>
                     <div class="widget card" data-section="about" style="--widget-index: ${widgetIndex++}; cursor: pointer;">
                         <h3>At a Glance</h3>
                         <ul class="space-y-1">
-                            ${cvData.profile.map(item => `<li><i data-lucide="zap" class="inline-block w-3 h-3 mr-1.5 text-accent-glow"></i>${item}</li>`).join('')} {/* Ícone diferente e texto completo */}
+                            ${cvData.profile.map(item => `<li><i data-lucide="zap" class="inline-block w-3 h-3 mr-1.5 text-accent-glow"></i>${item}</li>`).join('')}
                         </ul>
                         <a href="#" class="widget-details-link" aria-label="View more details about profile">details <i data-lucide="arrow-right" class="inline-block"></i></a>
                     </div>
@@ -509,7 +580,7 @@
                         <h3>Current Focus: ${cvData.professionalExperience[0].company}</h3>
                         <p class="font-medium text-xs">${cvData.professionalExperience[0].role}</p>
                         <p class="text-xs text-gray-500 mb-1">${cvData.professionalExperience[0].period}</p>
-                        <p>${cvData.professionalExperience[0].description.substring(0,220)}...</p> {/* Mais texto */}
+                        <p>${cvData.professionalExperience[0].description.substring(0,220)}...</p>
                         <a href="#" class="widget-details-link" aria-label="View details about current experience">details <i data-lucide="arrow-right" class="inline-block"></i></a>
                     </div>
                     <div class="widget card" data-section="skills" style="--widget-index: ${widgetIndex++}; cursor: pointer;">
@@ -527,9 +598,9 @@
                     </div>
                 </div>
             `;
-            lucide.createIcons();
-            renderSkillsChart();
-            addWidgetEventListeners();
+            callLucide();
+            renderSkillsChart(); 
+            addWidgetEventListeners(); 
         }
 
         function renderSection(sectionId) {
@@ -560,12 +631,10 @@
                                         ${cvData.languages.map(item => `<li><strong>${item.lang}:</strong> ${item.level}</li>`).join('')}
                                     </ul>
                                 </div>
-                                {/* Secção Motivations removida */}
                             </div>
                         </div>`;
                     break;
-                // ... (restantes casos para 'experience', 'education', 'skills', 'contact', 'logout' mantêm-se como na versão anterior)
-                 case 'experience':
+                case 'experience':
                     contentHTML = `
                         <div class="content-section card">
                             <h2 class="section-title">Professional Journey</h2>
@@ -643,7 +712,7 @@
                     contentHTML = `<p class="text-red-500">Section not found.</p>`;
             }
             pageContentElement.innerHTML = contentHTML;
-            lucide.createIcons();
+            callLucide();
             pageContentElement.scrollTop = 0;
         }
 
@@ -662,10 +731,13 @@
                     link.classList.add('active');
                 }
                 
-                reinitializeAnimationsForContent();
+                reinitializeAnimationsForContent(); 
 
-                if (sectionId === 'dashboard') renderDashboard();
-                else renderSection(sectionId);
+                if (sectionId === 'dashboard') {
+                    renderDashboard();
+                } else {
+                    renderSection(sectionId);
+                }
 
                 if (window.innerWidth <= 767) { 
                     sidebarElement.classList.remove('open');
@@ -680,14 +752,13 @@
                 const detailsLink = widget.querySelector('.widget-details-link');
                 if (detailsLink) {
                     detailsLink.addEventListener('click', (e) => {
-                        e.preventDefault(); // Previne o comportamento padrão do link se for #
-                        e.stopPropagation(); // Impede que o evento de clique do widget seja acionado
+                        e.preventDefault(); 
+                        e.stopPropagation(); 
                         const sectionId = widget.dataset.section;
                         const correspondingNavLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
                         if (correspondingNavLink) correspondingNavLink.click();
                     });
                 }
-                // Adiciona listener ao widget inteiro também, mas o do link tem prioridade
                 widget.addEventListener('click', () => {
                     const sectionId = widget.dataset.section;
                     const correspondingNavLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
@@ -706,20 +777,19 @@
         });
         
         function initializeLayout() {
-            renderDashboard();
-            if (window.innerWidth <= 767) {
-                const mainContentArea = document.querySelector('.main-content-area');
-                mainContentArea.style.marginLeft = '0';
-            } else {
-                // Em desktop, a sidebar tem largura fixa e não há toggle, então a margem é sempre a da sidebar
+            renderDashboard(); 
+            
+            if (window.innerWidth > 767) {
                 const mainContentArea = document.querySelector('.main-content-area');
                 mainContentArea.style.marginLeft = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width-desktop').trim();
+            } else {
+                const mainContentArea = document.querySelector('.main-content-area');
+                mainContentArea.style.marginLeft = '0';
             }
-            lucide.createIcons();
+            callLucide(); 
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
             initializeLayout();
         });
 
