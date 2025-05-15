@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bruno Oliveira - Product Manager [Final v9]</title>
+    <title>Bruno Oliveira - Product Manager [Final v10]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -144,8 +144,8 @@
             padding: 1.75rem;
             margin-left: var(--sidebar-width-desktop);
             flex-grow: 1;
-            width: calc(100% - var(--sidebar-width-desktop));
-            overflow-x: hidden; /* Garante que conteúdo interno não cause scroll horizontal */
+            width: calc(100% - var(--sidebar-width-desktop)); 
+            overflow-x: hidden; 
         }
         .main-content-area h2.section-title {
             font-size: var(--font-size-xl);
@@ -204,7 +204,7 @@
         .widget-grid {
             display: grid;
             gap: 2.5rem; 
-            grid-template-columns: minmax(0, 1fr); /* Garante que a coluna única não exceda o container */
+            grid-template-columns: minmax(0, 1fr); 
         }
         @media (min-width: 1024px) { /* Desktop: lg e acima */
             .widget-grid {
@@ -228,8 +228,8 @@
         }
         .widget.card {
              animation-delay: calc(var(--widget-index, 0) * 0.08s + 0.04s);
-             width: 100%; /* Garante que o widget não tente ser mais largo que a coluna da grelha */
-             box-sizing: border-box; /* Inclui padding e border na largura total */
+             width: 100%; 
+             box-sizing: border-box; 
         }
         .content-section.card { animation-delay: 0.04s; }
 
@@ -287,11 +287,11 @@
             }
             .card h3 { font-size: 1.05rem; }
             .widget-grid { 
-                grid-template-columns: minmax(0, 1fr); /* Reforçado para mobile */
+                grid-template-columns: minmax(0, 1fr); 
                 gap: 1.5rem; 
             }
             .widget.card {
-                width: 100%; /* Garante que o widget ocupa a largura da coluna em mobile */
+                width: 100%; 
             }
             .widget-details-link { 
                 font-size: calc(var(--font-size-xs) * 0.9); 
@@ -517,7 +517,7 @@
                     labels: ['Product Strategy', 'Roadmapping', 'Agile', 'UX/UI', 'Stakeholder Mgt.', 'Market Analysis'],
                     datasets: [{
                         label: 'Proficiency', 
-                        data: [90, 85, 95, 75, 88, 80], 
+                        data: [90, 100, 100, 65, 100, 100], // Valores atualizados
                         backgroundColor: 'rgba(223, 255, 0, 0.25)', 
                         borderColor: 'var(--accent-glow)', 
                         pointBackgroundColor: 'var(--accent-glow)',
@@ -537,12 +537,12 @@
                             angleLines: { color: 'rgba(223, 255, 0, 0.15)' }, 
                             grid: { color: 'rgba(223, 255, 0, 0.15)' }, 
                             pointLabels: { 
-                                color: '#E0E0E0', // Cor do texto das labels dos eixos (ex: 'Market Analysis')
+                                color: '#E0E0E0', 
                                 font: { size: 8, weight: '400' } 
                             },
                             ticks: { 
                                 backdropColor: 'transparent', 
-                                color: '#E0E0E0', // Cor do texto dos números dos eixos (0, 20, 40, etc.)
+                                color: '#E0E0E0', 
                                 font: { size: 7 }, 
                                 stepSize: 20,
                                 min: 0, 
@@ -617,8 +617,7 @@
                 </div>
             `;
             callLucide();
-            // Defer chart rendering slightly to ensure canvas container is ready
-            requestAnimationFrame(() => {
+            requestAnimationFrame(() => { // Adia a renderização do gráfico
                 renderSkillsChart();
             });
             addWidgetEventListeners(); 
