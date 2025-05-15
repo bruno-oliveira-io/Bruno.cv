@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bruno Oliveira - Product Manager [Final v7]</title>
+    <title>Bruno Oliveira - Product Manager [Final v8]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -144,6 +144,7 @@
             padding: 1.75rem;
             margin-left: var(--sidebar-width-desktop);
             flex-grow: 1;
+            width: calc(100% - var(--sidebar-width-desktop)); /* Garante que não excede a largura da viewport */
         }
         .main-content-area h2.section-title {
             font-size: var(--font-size-xl);
@@ -165,7 +166,7 @@
             animation: fadeInUp 0.55s ease forwards;
             margin-bottom: 3rem; 
             position: relative;
-            min-height: 150px; /* Altura mínima para ajudar no carregamento inicial */
+            min-height: 180px; /* Aumentado ligeiramente para consistência */
         }
         .card h3 {
             font-size: var(--font-size-lg);
@@ -201,17 +202,19 @@
 
         .widget-grid {
             display: grid;
-            gap: 3rem; 
-            grid-template-columns: 1fr;
+            gap: 2.5rem; /* Ajustado para um espaçamento mais equilibrado */
+            grid-template-columns: 1fr; /* Default para mobile, uma coluna */
         }
-        @media (min-width: 1024px) { /* lg e acima */
+        @media (min-width: 1024px) { /* Desktop: lg e acima */
             .widget-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr)); /* Garante 2 colunas com largura igual */
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* Duas colunas de largura igual */
+                gap: 3rem; /* Espaçamento maior em desktop */
             }
         }
-         @media (min-width: 768px) and (max-width: 1023px) { /* md */
+         @media (min-width: 768px) and (max-width: 1023px) { /* Tablet: md */
             .widget-grid {
                 grid-template-columns: 1fr; /* Uma coluna em tablets para melhor leitura */
+                gap: 2rem; /* Espaçamento para tablet */
             }
         }
 
@@ -261,6 +264,7 @@
             .main-content-area { 
                 margin-left: 0; 
                 padding: 1rem; 
+                width: 100%; /* Garante que ocupa a largura total em mobile */
             }
             .content-header { 
                 padding-right: 1rem; 
@@ -276,6 +280,7 @@
             .card { 
                 padding: 1rem; 
                 margin-bottom: 1.5rem; 
+                min-height: auto; /* Remove min-height em mobile se não for necessário */
             }
             .card h3 { font-size: 1.05rem; }
             .widget-grid { 
@@ -383,11 +388,11 @@
             </div>
         </header>
         <div id="pageContent">
-            </div>
+            {/* O conteúdo da página (dashboard ou secções) será renderizado aqui pelo JavaScript */}
+        </div>
     </main>
 
     <script>
-        // Dados do CV (conteúdo em Inglês)
         const cvData = {
             name: "Bruno Oliveira",
             title: "Product Manager",
@@ -478,14 +483,11 @@
         let skillsChart = null; 
 
         function callLucide() {
-            // Verifica se Lucide está carregado antes de chamar
             if (typeof lucide !== 'undefined' && lucide && typeof lucide.createIcons === 'function') {
                 lucide.createIcons();
             } else {
-                // Tenta novamente após um pequeno delay se não estiver carregado
-                // Evita loops infinitos com um contador ou uma flag
-                console.warn("Lucide Icons library not fully loaded yet, will retry or check script order.");
-                setTimeout(callLucide, 100); 
+                console.warn("Lucide Icons library not fully loaded yet. Retrying...");
+                setTimeout(callLucide, 200); // Tenta novamente com um delay maior
             }
         }
 
@@ -529,18 +531,18 @@
                         r: {
                             angleLines: { color: 'rgba(223, 255, 0, 0.15)' }, 
                             grid: { color: 'rgba(223, 255, 0, 0.15)' }, 
-                 pointLabels: { 
-                color: '#E0E0E0', // Exemplo: Cinza claro direto
-                font: { size: 9, weight: '500' } // Aumentei um pouco o tamanho para legibilidade
-            },
-            ticks: { 
-                backdropColor: 'transparent', 
-                color: '#E0E0E0', // Exemplo: Cinza claro direto
-                font: { size: 8 }, // Aumentei um pouco o tamanho
-                stepSize: 20,
-                min: 0, 
-                max: 100 
-            }
+                            pointLabels: { 
+                                color: '#E0E0E0', // Cor do texto das labels dos eixos (ex: 'Market Analysis')
+                                font: { size: 8, weight: '400' } 
+                            },
+                            ticks: { 
+                                backdropColor: 'transparent', 
+                                color: '#E0E0E0', // Cor do texto dos números dos eixos (0, 20, 40, etc.)
+                                font: { size: 7 }, 
+                                stepSize: 20,
+                                min: 0, 
+                                max: 100 
+                            }
                         }
                     },
                     plugins: {
