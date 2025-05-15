@@ -3,632 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bruno Oliveira - Product Manager CV Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-    <style>
-        /* Custom styles for a modern minimalist look with unified background */
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #F1F1F1; /* <-- Cor #F1F1F1 para todo o fundo */
-            margin: 0;
-            padding: 0;
-            display: flex; /* Use flexbox for main layout */
-            min-height: 100vh; /* Full viewport height */
-            overflow: hidden; /* Prevent body scroll when content area scrolls */
-        }
-        .sidebar {
-            width: 220px; /* Slightly wider sidebar */
-            background-color: #F1F1F1; /* <-- Cor #F1F1F1 para a sidebar */
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05); /* Softer, wider shadow */
-            padding: 20px;
-            flex-shrink: 0; /* Prevent sidebar from shrinking */
-            overflow-y: auto; /* Enable sidebar scrolling if needed */
-        }
-        .sidebar-nav a {
-            display: flex; /* Align icon and text */
-            align-items: center; /* Vertically center */
-            padding: 12px 15px; /* Increased padding */
-            margin-bottom: 8px;
-            color: #555; /* Default text color */
-            text-decoration: none;
-            border-radius: 8px; /* More rounded corners */
-            transition: background-color 0.2s ease, color 0.2s ease; /* Smooth transitions */
-        }
-        .sidebar-nav a:hover,
-        .sidebar-nav a.active {
-            background-color: #e6f7ff; /* Very light blue on hover/active (mantido o acento) */
-            color: #007bff; /* Primary blue accent color (mantido o acento) */
-        }
-        .main-content-area {
-            flex-grow: 1; /* Allow main content to take remaining space */
-            padding: 30px; /* Increased padding */
-            overflow-y: auto; /* Enable scrolling for main content */
-            position: relative; /* Needed for absolute positioning of view toggle */
-             background-color: #F1F1F1; /* <-- Cor #F1F1F1 para a área de conteúdo (inclui espaços entre widgets) */
-        }
-        .content-section {
-            background-color: #FDFDFD; /* <-- Cor #FDFDFD para as secções de conteúdo */
-            padding: 30px; /* Increased padding */
-            margin-bottom: 30px; /* Increased margin */
-            border-radius: 12px; /* More rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Softer, larger shadow */
-            border: 1px solid #e0e0e0; /* Light gray border (mantido) */
-        }
-        .section-heading {
-            font-size: 1.8em; /* Slightly larger heading for sections */
-            font-weight: 600; /* Semi-bold */
-            color: #333;
-        }
-         .experience-item {
-            margin-bottom: 25px; /* Increased margin */
-            padding-bottom: 20px; /* Increased padding */
-            border-bottom: 1px solid #eee; /* Solid, lighter separator (mantido) */
-        }
-        .experience-item:last-child {
-            border-bottom: none; /* No border for the last item */
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .job-title {
-            font-weight: 600; /* Semi-bold */
-            color: #333;
-            font-size: 1.1em; /* Slightly larger */
-        }
-        .company-name {
-            font-style: normal; /* Remove italic */
-            color: #666;
-            font-size: 1em;
-            margin-top: 4px;
-        }
-        .dates {
-            color: #777;
-            font-size: 0.9em;
-            margin-bottom: 12px; /* Increased margin */
-            display: block; /* Ensure dates are on their own line */
-        }
-        ul {
-            list-style: disc;
-            margin-left: 20px;
-            padding-left: 0;
-        }
-        li {
-            margin-bottom: 10px; /* Increased margin */
-            color: #555;
-        }
-        .profile-image {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-        }
-
-        /* Dashboard Specific Styles - Modern Minimalist */
-        .dashboard-widgets {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly wider widgets */
-            gap: 25px; /* Increased space between widgets */
-        }
-        .widget-card {
-            background-color: #FDFDFD; /* <-- Cor #FDFDFD para os cartões de widget */
-            padding: 25px; /* Increased padding */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); /* Softer shadow */
-            cursor: pointer; /* Indicate clickable */
-            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
-            display: flex; /* Use flexbox for widget content */
-            flex-direction: column;
-            justify-content: space-between; /* Space out content */
-            /* Removed border from widget cards */
-        }
-         .widget-card:hover {
-             transform: translateY(-5px); /* Lift effect on hover */
-             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* More prominent shadow on hover */
-         }
-        .widget-card h3 {
-            font-size: 1em; /* Smaller heading */
-            font-weight: 600; /* Semi-bold */
-            color: #333; /* Black color for widget titles (mantido) */
-            margin-bottom: 10px; /* Adjusted margin */
-             display: flex;
-             align-items: center;
-        }
-         .widget-card h3 i {
-             margin-right: 8px; /* Adjusted margin */
-             color: #555; /* Icon color slightly lighter than text (mantido) */
-         }
-        .widget-card p {
-            font-size: 0.85em; /* Made text smaller */
-            color: #555; /* (mantido) */
-            flex-grow: 1; /* Allow paragraph to take space */
-        }
-         .widget-link {
-             margin-top: 15px; /* Adjusted margin */
-             text-align: right;
-             font-size: 0.9em;
-             color: #007bff; /* Link color matches accent (mantido) */
-             font-weight: 600; /* Semi-bold */
-             text-decoration: none; /* No underline by default */
-             transition: text-decoration 0.2s ease;
-         }
-         .widget-link:hover {
-             text-decoration: underline; /* Underline on hover */
-         }
-
-        /* Chart within Widget Styling */
-        .widget-chart-container {
-            margin-top: 15px; /* Space above the chart */
-            display: flex;
-            justify-content: center; /* Center the chart */
-            align-items: center;
-            /* Increased max size for the chart canvas within the widget */
-            max-width: 250px; /* Increased max width */
-            max-height: 250px; /* Increased max height */
-            align-self: center; /* Center the chart horizontally in the flex container */
-        }
-        .widget-chart-container canvas {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-
-        /* Icons in top right */
-        .top-right-icons {
-            display: flex;
-            gap: 15px; /* Space between icons */
-            font-size: 1.4em; /* Icon size */
-            color: #555; /* Icon color (mantido) */
-        }
-        .top-right-icons i {
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        .top-right-icons i:hover {
-            color: #007bff; /* Accent color on hover (mantido) */
-        }
-
-        /* Container for Dashboard heading and icons */
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee; /* Lighter separator (mantido) */
-            padding-bottom: 15px; /* Increased padding */
-            margin-bottom: 25px; /* Increased margin */
-        }
-        .dashboard-header .section-heading {
-            border-bottom: none; /* Remove border from heading when in flex container */
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        /* Removed mobile-view specific styles */
-
-
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column; /* Stack sidebar and main content on small screens */
-            }
-            .sidebar {
-                width: 100%; /* Full width sidebar */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Shadow at the bottom */
-                padding: 10px;
-                display: flex; /* Use flex for horizontal layout on small screens */
-                justify-content: space-around; /* Distribute nav items */
-                align-items: center;
-            }
-             .sidebar-nav {
-                 display: flex; /* Ensure nav items are in a row */
-                 flex-grow: 1; /* Allow nav to take space */
-                 justify-content: space-around; /* Distribute items evenly */
-             }
-            .sidebar-nav a {
-                flex-direction: column; /* Stack icon and text */
-                padding: 8px 5px;
-                margin-bottom: 0;
-                text-align: center;
-            }
-             .sidebar-nav a i {
-                 margin-right: 0; /* Remove margin */
-                 margin-bottom: 5px; /* Add space below icon */
-             }
-            .profile-image {
-                display: none; /* Hide small image in mobile nav */
-            }
-            .main-content-area {
-                padding: 15px; /* Adjusted padding */
-            }
-             .content-section {
-                 padding: 20px; /* Adjusted padding */
-                 margin-bottom: 20px;
-             }
-             .section-heading {
-                 font-size: 1.5em; /* Adjusted size */
-                 margin-bottom: 20px;
-             }
-             .dashboard-widgets {
-                 grid-template-columns: 1fr; /* Single column on small screens */
-                 gap: 15px; /* Adjusted gap */
-             }
-             .widget-card {
-                 padding: 20px; /* Adjusted padding */
-             }
-             .widget-chart-container {
-                 margin-top: 10px;
-                 max-width: 150px; /* Adjusted size for mobile */
-                 max-height: 150px; /* Adjusted size for mobile */
-             }
-              .widget-chart-container canvas {
-                 max-height: 120px; /* Adjusted size for mobile */
-                 max-width: 120px; /* Adjusted size for mobile */
-              }
-             .top-right-icons {
-                 font-size: 1.2em;
-                 gap: 10px;
-             }
-              .dashboard-header {
-                  flex-direction: column; /* Stack heading and icons on small screens */
-                  align-items: flex-start;
-              }
-              .dashboard-header .section-heading {
-                  margin-bottom: 10px;
-              }
-        }
-    </style>
+    <title>Bruno Oliveira - Product Manager [Final Version]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex min-h-screen bg-gray-100">
+<body class="flex">
 
-    <div class="sidebar bg-white shadow-lg flex-shrink-0 p-6">
-        <div class="text-center mb-8">
-             <img src="https://placehold.co/80x80/e0e0e0/ffffff?text=Photo" alt="Profile Photo" class="profile-image rounded-full mx-auto mb-4 border-2 border-white shadow-md">
-            <h1 class="text-xl font-bold text-gray-800">Bruno O.</h1>
-            <p class="text-sm text-gray-600">Product Manager</p>
-        </div>
+    <button id="mobileMenuButton" class="mobile-menu-button md:hidden">
+        <i data-lucide="menu" class="w-4 h-4"></i>
+    </button>
+    <div id="overlay" class="overlay md:hidden"></div>
 
-        <nav class="sidebar-nav">
-             <a href="#dashboard" class="nav-link active flex items-center py-3 px-4 mb-2 rounded-lg transition duration-200" data-section="dashboard-section">
-                 <i class="fas fa-chart-line mr-3 text-lg"></i>
-                 <span>Dashboard</span>
-             </a>
-            <a href="#profile" class="nav-link flex items-center py-3 px-4 mb-2 rounded-lg transition duration-200" data-section="profile-section">
-                <i class="fas fa-user mr-3 text-lg"></i>
-                <span>Profile</span>
-            </a>
-            <a href="#experience" class="nav-link flex items-center py-3 px-4 mb-2 rounded-lg transition duration-200" data-section="experience-section">
-                 <i class="fas fa-briefcase mr-3 text-lg"></i>
-                 <span>Experience</span>
-            </a>
-            <a href="#skills" class="nav-link flex items-center py-3 px-4 mb-2 rounded-lg transition duration-200" data-section="skills-section">
-                <i class="fas fa-tools mr-3 text-lg"></i>
-                <span>Skills</span>
-            </a>
-             <a href="#products" class="nav-link flex items-center py-3 px-4 mb-2 rounded-lg transition duration-200" data-section="products-section">
-                 <i class="fas fa-cube mr-3 text-lg"></i>
-                 <span>Products</span>
-             </a>
-             <a href="#education" class="nav-link flex items-center py-3 px-4 mb-2 rounded-lg transition duration-200" data-section="education-section">
-                 <i class="fas fa-graduation-cap mr-3 text-lg"></i>
-                 <span>Education</span>
-             </a>
-             <a href="#contact" class="nav-link flex items-center py-3 px-4 mb-2 rounded-lg transition duration-200" data-section="contact-section">
-                 <i class="fas fa-envelope mr-3 text-lg"></i>
-                 <span>Contact</span>
-             </a>
-             </nav>
-    </div>
-
-    <div class="main-content-area flex-grow p-8 overflow-y-auto relative">
-
-        <div id="dashboard-section" class="content-section bg-white rounded-xl shadow-md p-8 mb-8">
-            <div class="dashboard-header flex justify-between items-center border-b border-gray-200 pb-4 mb-6">
-                <h2 class="text-2xl font-semibold text-gray-800">Dashboard Overview</h2>
-                 <div class="top-right-icons flex items-center space-x-4 text-xl text-gray-600">
-                     <i class="fas fa-bell cursor-pointer hover:text-blue-500 transition duration-200" title="Notifications"></i>
-                     <i class="fas fa-envelope" title="Messages"></i>
-                 </div>
-            </div>
-
-            <div class="dashboard-widgets grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                 <div class="widget-card bg-white rounded-lg shadow-sm p-6 cursor-pointer transition duration-200 hover:shadow-md" data-section-target="profile-section">
-                     <h3><i class="fas fa-user mr-3 text-blue-500"></i> Profile Summary</h3>
-                     <p class="text-gray-600 text-sm leading-relaxed">Senior Product Leader with 15+ years in software development and 6+ years driving product vision, strategy, and growth in dynamic startup and scaleup environments. Passionate about understanding user needs and solving complex problems through outcome-driven product management...</p>
-                     <div class="widget-link text-blue-500 font-semibold text-sm mt-4 text-right hover:underline">View Profile &rarr;</div>
-                 </div>
-
-                <div class="widget-card" data-section-target="experience-section">
-                    <h3><i class="fas fa-briefcase mr-3 text-green-500"></i> Experience Highlights</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">6+ years as Product Manager, 4+ years in Startups/Scaleups, 7+ years as Software Engineer...</p>
-                     <div class="widget-chart-container mt-4 flex justify-center items-center">
-                          <canvas id="experienceHighlightsChart" class="chart-canvas" width="250" height="250"></canvas>
-                     </div>
-                     <div class="widget-link text-blue-500 font-semibold text-sm mt-4 text-right hover:underline">View Experience &rarr;</div>
+    <aside id="sidebar" class="sidebar h-screen p-2.5 flex flex-col">
+        <div>
+            <div class="text-center py-3">
+                <div class="profile-info">
+                    <div class="w-16 h-16 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full mx-auto flex items-center justify-center text-2xl font-bold mb-1.5 profile-avatar">
+                        BO
+                    </div>
+                    <h1 class="text-base font-semibold text-white">Bruno Oliveira</h1>
+                    <p class="text-xs text-gray-400">Product Manager</p>
                 </div>
-
-                 <div class="widget-card bg-white rounded-lg shadow-sm p-6 cursor-pointer transition duration-200 hover:shadow-md" data-section-target="skills-section">
-                     <h3><i class="fas fa-tools mr-3 text-yellow-500"></i> Key Skills</h3>
-                     <p class="text-gray-600 text-sm leading-relaxed">Product Management and Strategy, Roadmap, Requirements definition, Prioritization, Stakeholder Engagement, Market analysis and customer research, UX, UI and research, Cross-functional collaboration, Agile Methodologies and Tools Admin, Product Vision, Product Discovery, User Research, Growth, Scalability.</p>
-                     <div class="widget-link text-blue-500 font-semibold text-sm mt-4 text-right hover:underline">View Skills &rarr;</div>
-                 </div>
-
-                  <div class="widget-card bg-white rounded-lg shadow-sm p-6 cursor-pointer transition duration-200 hover:shadow-md" data-section-target="products-section">
-                     <h3><i class="fas fa-cube mr-3 text-red-500"></i> Product Areas</h3>
-                     <p class="text-gray-600 text-sm leading-relaxed">Fintech, Platforms, Payments, Finance, Advice, Onboard, Integrations, Risk Assessment and compliance (AML/ID&V), Documents, E-signatures, Secure Messages, Workflows, Crowdsourcing, Authorization.</p>
-                     <div class="widget-link text-blue-500 font-semibold text-sm mt-4 text-right hover:underline">View Products &rarr;</div>
-                  </div>
-
-                  <div class="widget-card bg-white rounded-lg shadow-sm p-6 cursor-pointer transition duration-200 hover:shadow-md" data-section-target="education-section">
-                     <h3><i class="fas fa-graduation-cap mr-3 text-purple-500"></i> Education & Training</h3>
-                     <p class="text-gray-600 text-sm leading-relaxed">Information Systems Management<br>College of Business Administration (Setúbal)</p>
-                     <div class="widget-link text-blue-500 font-semibold text-sm mt-4 text-right hover:underline">View Education &rarr;</div>
-                  </div>
-
-                  <div class="widget-card bg-white rounded-lg shadow-sm p-6 cursor-pointer transition duration-200 hover:shadow-md" data-section-target="contact-section">
-                     <h3><i class="fas fa-envelope mr-3 text-indigo-500"></i> Contact Information</h3>
-                     <p class="text-gray-600 text-sm leading-relaxed">Number: +351 963 623 430<br>Email: <a href="mailto:bruno.oliveira.io@outlook.com" class="text-blue-500 hover:underline">bruno.oliveira.io@outlook.com</a><br>Linkedin: <a href="https://linkedin.com/in/brunuoliveira/" class="text-blue-500 hover:underline">linkedin.com/in/brunuoliveira/</a></p>
-                     <div class="widget-link text-blue-500 font-semibold text-sm mt-4 text-right hover:underline">Get in Touch &rarr;</div>
-                  </div>
-
-                 </div>
-
-        </div>
-
-        <div id="profile-section" class="content-section bg-white rounded-xl shadow-md p-8 mb-8">
-            <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 mb-6">Profile</h2>
-            <p class="text-gray-700 text-base leading-relaxed">
-                Senior Product Leader with 15+ years in software development and 6+ years driving product vision, strategy, and growth in dynamic startup and scaleup environments. Passionate about understanding user needs and solving complex problems through outcome-driven product management. Proven ability to lead cross-functional teams, define roadmaps, and execute discovery initiatives to deliver impactful SaaS, Fintech, and Platform solutions. Seeking a challenging Senior PM or leadership role (Lead, Group PM, Director) in an innovative company focused on AI, SaaS, Healthtech, or Marketplaces. Thrives in remote-first cultures, open to hybrid in Lisbon/Valencia.
-            </p>
-             <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-4">Experience Summary</h3>
-             <ul class="list-disc list-inside text-gray-700 text-base leading-relaxed">
-                 <li>7+ years in Agile (9+ years in Waterfall)</li>
-                 <li>4+ years in Startups/Scaleups</li>
-                 <li>6+ years as a Product Manager (5+ as a PO)</li>
-                 <li>9+ years as a Project Manager</li>
-                 <li>7+ years as a Software Engineer</li>
-             </ul>
-        </div>
-
-        <div id="experience-section" class="content-section bg-white rounded-xl shadow-md p-8 mb-8">
-            <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 mb-6">Experience</h2>
-
-            <div class="experience-item mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:mb-0 last:pb-0">
-                 <p class="text-lg font-semibold text-gray-800">Senior Product Manager</p>
-                 <p class="text-gray-700 italic">FNZ</p>
-                 <p class="text-gray-600 text-sm">(August 2023 - Present)</p>
-                 <p class="text-sm text-gray-700 mt-2 text-base leading-relaxed">Product: New world-class global solution for Advice and Wealth. Fintech.</p>
-                 <p class="text-sm text-gray-700 text-base leading-relaxed">Areas: Client Portal, Client App, Cross-platform features (Documents, E-Signatures, Notifications and Alerts), Fact-Find and Fees Builder, Income Management (Fees and Commissions), MI Widgets and Reports.</p>
-                 <ul class="list-disc list-inside text-gray-700 mt-3 text-base leading-relaxed">
-                     <li>Defined and executed the product roadmap for key client-facing features, aligning with global wealth management strategy.</li>
-                     <li>Led discovery initiatives to gather user feedback and requirements for new cross-platform functionalities.</li>
-                     <li>Collaborated with design and engineering teams to deliver features impacting millions of users globally.</li>
-                     <li>Contributed to the overall product vision and strategy for the Advice and Wealth platform.</li>
-                 </ul>
             </div>
 
-            <div class="experience-item mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:mb-0 last:pb-0">
-                <p class="job-title text-lg font-semibold text-gray-800">Senior Product Manager</p>
-                <p class="company-name text-gray-700 italic">Advicefront (Acquired by FNZ)</p>
-                <p class="dates text-gray-600 text-sm">(May 2022 - August 2023)</p>
-                <p class="text-sm text-gray-700 mt-2 text-base leading-relaxed">Product: Advice and Wealth Platform, Fintech.</p>
-                <p class="text-sm text-gray-700 text-base leading-relaxed">Areas: Onboarding, Documents, E-signatures, Integrations and Client portal for Advice Firms.</p>
-                <ul class="list-disc list-inside text-gray-700 mt-2 text-base leading-relaxed">
-                    <li>Defined and executed the product roadmap for Onboarding, Documents, E-signatures, and Client Portal areas, contributing to the platform's acquisition by FNZ.</li>
-                    <li>Led user research and discovery efforts to identify key pain points in the onboarding flow, resulting in a redesigned process that boosted delivery efficiency by 25%.</li>
-                    <li>Collaborated closely with C-suite stakeholders, design, and engineering to launch new features that achieved a 15% user growth within 6 months.</li>
-                    <li>Championed Agile and PDLC best practices across the product team, improving workflow and communication.</li>
-                </ul>
-            </div>
-
-             <div class="experience-item mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:mb-0 last:pb-0">
-                <p class="job-title text-lg font-semibold text-gray-800">Senior Product Owner</p>
-                <p class="company-name text-gray-700 italic">Axiomatics</p>
-                <p class="dates text-gray-600 text-sm">(Jun 2021 - May 2022)</p>
-                <p class="text-sm text-gray-700 mt-2 text-base leading-relaxed">Product: Authorization and Authentication.</p>
-                <p class="text-sm text-gray-700 text-base leading-relaxed">Areas: AuthZ, AuthN, Platform, Observability, UX/UI.</p>
-                <ul class="list-disc list-inside text-gray-700 mt-2 text-base leading-relaxed">
-                    <li>Contributed to the product strategy for the Authorization and Authentication platform, focusing on scalability and developer experience.</li>
-                    <li>Facilitated ideation and design sessions for key platform features, translating user needs into product specifications.</li>
-                    <li>Introduced new authentication features that improved security and user experience for enterprise clients.</li>
-                    <li>Led one product area, closely collaborating with the CPO and Engineering Lead to align development with strategic goals.</li>
-                </ul>
-            </div>
-
-             <div class="experience-item mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:mb-0 last:pb-0">
-                <p class="job-title text-lg font-semibold text-gray-800">Senior Product Owner</p>
-                <p class="company-name text-gray-700 italic">Windmill Solutions</p>
-                <p class="dates text-gray-600 text-sm">(Sep 2020 - Jun 2021)</p>
-                <p class="text-sm text-gray-700 mt-2 text-base leading-relaxed">Products: Financial platform.</p>
-                <p class="text-sm text-gray-700 text-base leading-relaxed">Areas: Financial Services, Securities, Cashier.</p>
-                <ul class="list-disc list-inside text-gray-700 mt-2 text-base leading-relaxed">
-                    <li>Led two Development teams collaborating with Stakeholders, Tech, and Design to deliver key financial platform features.</li>
-                    <li>Automated processes and introduced new financial instruments and Cashier platforms, improving operational efficiency.</li>
-                    <li>Facilitated the implementation of new features and a comprehensive UX/UI redesign to enhance user experience.</li>
-                </ul>
-            </div>
-
-             <div class="experience-item mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:mb-0 last:pb-0">
-                <p class="job-title text-lg font-semibold text-gray-800">Product Manager</p>
-                <p class="company-name text-gray-700 italic">Defined Crowd</p>
-                <p class="dates text-gray-600 text-sm">(Jun 2019 - Mar 2020)</p>
-                <p class="text-sm text-gray-700 mt-2 text-base leading-relaxed">Product: AI training data Platform (Crowdsourcing Speech, NLP, Computer Vision).</p>
-                <p class="text-sm text-gray-700 text-base leading-relaxed">Areas: Platforms, CRM, Payments and Finance.</p>
-                <ul class="list-disc list-inside text-gray-700 mt-2 text-base leading-relaxed">
-                     <li>Crafted roadmap aligned with business goals and vision for the AI training data platform.</li>
-                     <li>Managed technical teams as a PO to execute on roadmap initiatives.</li>
-                     <li>Implemented new processes that reduced complaints in Payments by 80%.</li>
-                     <li>Automated PayPal payment reconciliation, reducing workload by 90%.</li>
-                 </ul>
-            </div>
-             </div>
-
-        <div id="skills-section" class="content-section bg-white rounded-xl shadow-md p-8 mb-8">
-            <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 mb-6">Skills</h2>
-            <p class="text-gray-700 text-base leading-relaxed">
-                Product Management and Strategy, Roadmap, Requirements definition, Prioritization, Stakeholder Engagement, Market analysis and customer research, UX, UI and research, Cross-functional collaboration, Agile Methodologies and Tools Admin, Product Vision, Product Discovery, User Research, Growth, Scalability.
-            </p>
+            <nav class="mt-0.5 flex-grow">
+                <a href="#" class="nav-link active" data-section="dashboard" title="Dashboard">
+                    <i data-lucide="layout-dashboard"></i><span class="nav-text">Dashboard</span>
+                </a>
+                <a href="#" class="nav-link" data-section="about" title="About Me">
+                    <i data-lucide="user-circle-2"></i><span class="nav-text">About Me</span>
+                </a>
+                <a href="#" class="nav-link" data-section="experience" title="Experience">
+                    <i data-lucide="briefcase"></i><span class="nav-text">Experience</span>
+                </a>
+                <a href="#" class="nav-link" data-section="education" title="Education">
+                    <i data-lucide="graduation-cap"></i><span class="nav-text">Education</span>
+                </a>
+                <a href="#" class="nav-link" data-section="skills" title="Skills">
+                    <i data-lucide="sparkles"></i><span class="nav-text">Skills</span>
+                </a>
+                <a href="#" class="nav-link" data-section="contact" title="Contact">
+                    <i data-lucide="mail"></i><span class="nav-text">Contact</span>
+                </a>
+            </nav>
         </div>
-
-         <div id="products-section" class="content-section bg-white rounded-xl shadow-md p-8 mb-8">
-             <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 mb-6">Products</h2>
-             <p class="text-gray-700 text-base leading-relaxed">
-                 Fintech, Platforms, Payments, Finance, Advice, Onboard, Integrations, Risk Assessment and compliance (AML/ID&V), Documents, E-signatures, Secure Messages, Workflows, Crowdsourcing, Authorization.
-             </p>
-         </div>
-
-        <div id="education-section" class="content-section bg-white rounded-xl shadow-md p-8 mb-8">
-            <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 mb-6">Education & Training</h2>
-             <h3 class="text-xl font-semibold text-gray-800 mb-4">Education</h3>
-            <p class="text-gray-700 text-base leading-relaxed mb-6">
-                Information Systems Management<br>
-                College of Business Administration (Setúbal)
-            </p>
-             <h3 class="text-xl font-semibold text-gray-800 mb-4">Training</h3>
-            <p class="text-gray-700 text-base leading-relaxed">
-                Business, Technology, Product Management, SLDC/PDLC Agile, Tools, Data Analytics, Design, Research, Risk management
-            </p>
+        
+        <div class="mt-auto p-0.5">
+            <div class="sidebar-divider"></div>
+            <a href="#" class="nav-link" data-section="logout" title="Log Off">
+                <i data-lucide="log-out"></i><span class="nav-text">Log Off</span>
+            </a>
         </div>
+    </aside>
 
-        <div id="contact-section" class="content-section bg-white rounded-xl shadow-md p-8 mb-8">
-            <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 mb-6">Let's Talk!</h2>
-            <p class="text-gray-700 text-base leading-relaxed">
-                Number: +351 963 623 430<br>
-                Email: <a href="mailto:bruno.oliveira.io@outlook.com" class="text-blue-500 hover:underline">bruno.oliveira.io@outlook.com</a><br>
-                Linkedin: <a href="https://linkedin.com/in/brunuoliveira/" class="text-blue-500 hover:underline">linkedin.com/in/brunuoliveira/</a>
-            </p>
-        </div>
+    <main id="mainContent" class="main-content-area flex-1 overflow-y-auto h-screen"> 
+        <header class="content-header">
+            <div class="flex items-center">
+                <button class="header-icon" title="Notifications">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                </button>
+                <button class="header-icon" title="Messages">
+                    <i data-lucide="message-square" class="w-5 h-5"></i>
+                </button>
+                <button class="header-icon" title="Settings">
+                    <i data-lucide="settings-2" class="w-5 h-5"></i>
+                </button>
+                <div class="user-display ml-3">
+                    <div class="user-avatar">BO</div>
+                </div>
+            </div>
+        </header>
+        <div id="pageContent">
+            </div>
+    </main>
 
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
-            const contentSections = document.querySelectorAll('.main-content-area .content-section');
-            const widgetCards = document.querySelectorAll('.dashboard-widgets .widget-card');
-            const body = document.body;
-
-
-            // Function to show a specific section and hide others
-            const showSection = (sectionId) => {
-                contentSections.forEach(section => {
-                    if (section.id === sectionId) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-                // Render charts only when the dashboard is shown
-                if (sectionId === 'dashboard-section') {
-                     renderCharts();
-                }
-            };
-
-            // Function to update active link class
-            const updateActiveLink = (activeSectionId) => {
-                navLinks.forEach(link => {
-                    if (link.getAttribute('data-section') === activeSectionId) {
-                         link.classList.add('active');
-                    } else {
-                         link.classList.remove('active');
-                    }
-                });
-            };
-
-            // Add click event listeners to navigation links
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetSectionId = link.getAttribute('data-section');
-                    showSection(targetSectionId);
-                    updateActiveLink(targetSectionId);
-                    history.pushState(null, '', link.getAttribute('href'));
-                });
-            });
-
-            // Add click event listeners to widget cards
-            widgetCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const targetSectionId = card.getAttribute('data-section-target');
-                    showSection(targetSectionId);
-                    updateActiveLink(targetSectionId);
-                    history.pushState(null, '', `#${targetSectionId.replace('-section', '')}`);
-                });
-            });
-
-
-            // --- Chart Rendering ---
-             const experienceHighlightsData = {
-                 labels: ['Software Development', 'Project Management', 'Product Management'],
-                 datasets: [{
-                     label: 'Years of Experience',
-                     data: [7, 9, 6],
-                     backgroundColor: [
-                         'rgba(0, 123, 255, 0.8)',
-                         'rgba(40, 167, 69, 0.8)',
-                         'rgba(255, 193, 7, 0.8)'
-                     ],
-                     borderColor: '#ffffff',
-                     borderWidth: 2
-                 }]
-             };
-
-            const renderCharts = () => {
-                 if (window.experienceHighlightsChartInstance) window.experienceHighlightsChartInstance.destroy();
-
-                const experienceHighlightsCanvas = document.getElementById('experienceHighlightsChart');
-                if (experienceHighlightsCanvas) {
-                    const experienceHighlightsCtx = experienceHighlightsCanvas.getContext('2d');
-                     window.experienceHighlightsChartInstance = new Chart(experienceHighlightsCtx, {
-                         type: 'pie',
-                         data: experienceHighlightsData,
-                         options: {
-                             responsive: true,
-                             maintainAspectRatio: false,
-                              plugins: {
-                                 legend: {
-                                     position: 'bottom',
-                                 },
-                                 title: {
-                                     display: true,
-                                     text: 'Experience Breakdown by Role'
-                                 }
-                              }
-                         }
-                     });
-                }
-            };
-
-            // Handle initial load based on URL hash or default to dashboard
-            const initialHash = window.location.hash.substring(1);
-            const initialSectionId = initialHash ? initialHash + '-section' : 'dashboard-section';
-
-            showSection(initialSectionId);
-            updateActiveLink(initialSectionId);
-
-            // Render charts if the initial section is the dashboard
-             if (initialSectionId === 'dashboard-section') {
-                 renderCharts();
-             }
-
-            // Add an observer to re-render charts when the dashboard section becomes visible
-             const observer = new MutationObserver((mutations) => {
-                 mutations.forEach(mutation => {
-                     if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                         const dashboardSection = document.getElementById('dashboard-section');
-                         if (dashboardSection && dashboardSection.style.display !== 'none') {
-                             renderCharts();
-                         }
-                     }
-                 });
-             });
-
-             const dashboardSectionElement = document.getElementById('dashboard-section');
-             if (dashboardSectionElement) {
-                  observer.observe(dashboardSectionElement, { attributes: true });
-             }
-
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
